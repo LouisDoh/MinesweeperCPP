@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 
-struct Tile { //just holds data, a class impl. would only have getter and setter functions
+//just holds data, a class impl. would only have getter and setter functions
+struct Tile { 
 	bool bomb = false, flagged = false, revealed = false;
 	int nearBombs = 0;
 };
