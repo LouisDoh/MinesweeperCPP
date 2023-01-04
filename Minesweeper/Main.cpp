@@ -1,4 +1,5 @@
 #include "Tile.h"
+#include "Grid.h"
 #include <iostream>
 
 using namespace std;
@@ -19,5 +20,7 @@ int main() {
     cout << myTile << endl;
 
     myTile.nearBombs = 5;
-    cout << myTile << endl;
+    cout << myTile;
+
+    Grid myGrid(5);
 }
