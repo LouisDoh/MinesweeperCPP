@@ -11,8 +11,9 @@ Grid::Grid(const int width, const int height) : width(width), height(height) {
 	std::vector<Tile> currentRow;
 
 	for (int row = 0; row < height; row++) {
+		currentRow = {}; //reset to empty vector before next row
 		for (int col = 0; col < width; col++) {
-			currentRow = {}; //reset to empty vector before next row
+			
 			currentRow.push_back(Tile());
 		}
 		this->tileGrid.push_back(currentRow);
