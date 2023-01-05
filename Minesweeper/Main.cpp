@@ -20,7 +20,8 @@ int main() {
     cout << myTile << endl;
 
     myTile.nearBombs = 5;
-    cout << myTile;
+    cout << myTile << endl;
 
     Grid myGrid(5);
+    cout << myGrid;
 }
