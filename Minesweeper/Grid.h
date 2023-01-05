@@ -16,6 +16,7 @@ class Grid {
 		int getWidth() const { return width; }
 		int getHeight() const { return height; }
 		vector<vector<Tile>> getTileGrid() const { return tileGrid; }
+		string horizontalBorder() const;
 };
 
 ostream& operator<<(ostream& os, const Grid grid);

@@ -13,21 +13,26 @@ Grid::Grid(const int width, const int height) : width(width), height(height) {
 	for (int row = 0; row < height; row++) {
 		currentRow = {}; //reset to empty vector before next row
 		for (int col = 0; col < width; col++) {
-			
 			currentRow.push_back(Tile());
 		}
 		this->tileGrid.push_back(currentRow);
 	}
 }
 
+string Grid::horizontalBorder() const {
+	string returnString;
 
+	returnString.append("+");
+	for (int i = 0; i < this->width; i++) {
+		returnString.append("-");
+	}
+	returnString.append("+");
+
+	return returnString;
+}
 
 ostream& operator<<(ostream& os, const Grid grid) {
-	os << "+";
-	for (int i = 0; i < grid.getWidth(); i++) {
-		os << "-";
-	}
-	os << "+" << endl;
+	os << grid.horizontalBorder() << endl;
 
 	for (vector<Tile>& row : grid.getTileGrid()) {
 		os << "|";
@@ -37,11 +42,7 @@ ostream& operator<<(ostream& os, const Grid grid) {
 		os << "|" << endl;
 	}
 
-	os << "+";
-	for (int i = 0; i < grid.getWidth(); i++) {
-		os << "-";
-	}
-	os << "+";
+	os << grid.horizontalBorder();
 
 	return os;
 }
