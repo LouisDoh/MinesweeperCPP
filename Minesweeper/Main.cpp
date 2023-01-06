@@ -5,25 +5,10 @@
 using namespace std;
 
 int main() {
-    Tile myTile;
-    cout << myTile << endl;
-
-    myTile.flagged = true;
-    cout << myTile << endl;
-
-    myTile.flagged = false;
-    myTile.bomb = true;
-    myTile.revealed = true;
-    cout << myTile << endl;
-    
-    myTile.bomb = false;
-    cout << myTile << endl;
-
-    myTile.nearBombs = 5;
-    cout << myTile << endl;
-
     Grid myGrid(5);
+    myGrid.placeBombManual(0, 0);
+
     cout << myGrid << endl;
-    myGrid.placeBombs(10);
+    myGrid.clickTile(4, 4);
     cout << myGrid;
 }
