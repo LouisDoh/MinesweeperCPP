@@ -23,7 +23,13 @@ int main() {
     cout << myTile << endl;
 
     Grid myGrid(5);
+    //Grid otherGrid(5);
+    myGrid.placeBombManual(0, 0);
     cout << myGrid << endl;
-    myGrid.placeBombs(10);
+    myGrid.clickTile(4, 4);
     cout << myGrid;
+
+    //cout << "Grid two:" << endl << otherGrid << endl;
+    //otherGrid.placeBombs(10);
+    //cout << otherGrid;
 }

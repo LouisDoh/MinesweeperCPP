@@ -18,6 +18,12 @@ class Grid {
 		vector<vector<Tile>> getTileGrid() const { return tileGrid; }
 		string horizontalBorder() const;
 		void placeBombs(const int noOfBombs);
+		void updateNearbyBombs();
+		int getNearbyBombs(const int row, const int col) const;
+		void flagTile(const int row, const int col);
+		void clickTile(const int row, const int col);
+		void revealZeroes(const int row, const int col);
+		void placeBombManual(const int row, const int col); //for testing
 };
 
 ostream& operator<<(ostream& os, const Grid grid);
