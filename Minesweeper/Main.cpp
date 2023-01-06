@@ -23,5 +23,7 @@ int main() {
     cout << myTile << endl;
 
     Grid myGrid(5);
+    cout << myGrid << endl;
+    myGrid.placeBombs(10);
     cout << myGrid;
 }

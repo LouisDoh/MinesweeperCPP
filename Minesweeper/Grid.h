@@ -17,6 +17,7 @@ class Grid {
 		int getHeight() const { return height; }
 		vector<vector<Tile>> getTileGrid() const { return tileGrid; }
 		string horizontalBorder() const;
+		void placeBombs(const int noOfBombs);
 };
 
 ostream& operator<<(ostream& os, const Grid grid);

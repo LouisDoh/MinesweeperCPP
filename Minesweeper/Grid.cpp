@@ -31,6 +31,25 @@ string Grid::horizontalBorder() const {
 	return returnString;
 }
 
+void Grid::placeBombs(const int noOfBombs) {
+	int randRow;
+	int randCol;
+
+	for (int i = 0; i < noOfBombs; i++) {
+		randRow = rand() % height;
+		randCol = rand() % width;
+
+		while (this->tileGrid[randRow][randCol].bomb == true) {
+			randRow = rand() % height;
+			randCol = rand() % width;
+		}
+
+		this->tileGrid[randRow][randCol].bomb = true;
+	}
+
+	//bombs won't be distributed truly randomly, some bias towards lower values here
+}
+
 ostream& operator<<(ostream& os, const Grid grid) {
 	os << grid.horizontalBorder() << endl;
 
