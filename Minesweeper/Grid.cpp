@@ -1,13 +1,6 @@
 #include "Grid.h"
-#include <vector>
 
-Grid::Grid() : Grid(0) {
-}
-
-Grid::Grid(const int size) : Grid(size,size) {
-}
-
-Grid::Grid(const int width, const int height) : width(width), height(height) {
+Grid::Grid(const int width, const int height, const int noOfBombs) : width(width), height(height) {
 	std::vector<Tile> currentRow;
 
 	for (int row = 0; row < height; row++) {
@@ -15,12 +8,16 @@ Grid::Grid(const int width, const int height) : width(width), height(height) {
 		for (int col = 0; col < width; col++) {
 			currentRow.push_back(Tile());
 		}
-		this->tileGrid.push_back(currentRow);
+		tileGrid.push_back(currentRow);
 	}
+	placeBombs(noOfBombs);
 }
 
-string Grid::horizontalBorder() const {
-	string returnString;
+Grid::Grid() : Grid(10, 10, 10) {
+}
+
+std::string Grid::horizontalBorder() const {
+	std::string returnString;
 
 	returnString.append("+");
 	for (int i = 0; i < this->width; i++) {
@@ -118,18 +115,16 @@ void Grid::placeBombManual(const int row, const int col) {
 	updateNearbyBombs();
 }
 
-ostream& operator<<(ostream& os, const Grid grid) {
-	os << grid.horizontalBorder() << endl;
-
-	for (vector<Tile>& row : grid.getTileGrid()) {
-		os << "|";
-		for (Tile& currentTile : row) {
-			os << currentTile;
+std::ostream& operator<<(std::ostream& out, const Grid& o) {
+	out << o.horizontalBorder() << "\n";
+	for (auto& row : o.tileGrid) {
+		out << "|";
+		for (auto& tile : row) {
+			out << tile;
 		}
-		os << "|" << endl;
+		out << "|\n";
 	}
+	out << o.horizontalBorder();
 
-	os << grid.horizontalBorder();
-
-	return os;
+	return out;
 }
