@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-Grid::Grid(const int width, const int height, const int noOfBombs) : width(width), height(height) {
+Grid::Grid(const int width, const int height, const int noOfBombs) : width(width), height(height), state(GameState::ongoing) {
 	std::vector<Tile> currentRow;
 
 	for (int row = 0; row < height; row++) {
@@ -28,6 +28,17 @@ std::string Grid::horizontalBorder() const {
 	return returnString;
 }
 
+void Grid::checkWin() {
+	for (int row = 0; row < tileGrid.size(); row++) {
+		for (int col = 0; col < tileGrid[0].size(); col++) {
+			if (!tileGrid[row][col].bomb && !tileGrid[row][col].revealed) {
+				return;
+			}
+		}
+	}
+	state = GameState::won;
+} //this is a pretty expensive method but terminal I/O will take orders of magnitude longer anyway
+
 void Grid::placeBombs(const int noOfBombs) {
 	int randRow;
 	int randCol;
@@ -37,12 +48,12 @@ void Grid::placeBombs(const int noOfBombs) {
 		randRow = rand() % height;
 		randCol = rand() % width;
 
-		while (this->tileGrid[randRow][randCol].bomb == true) {
+		while (tileGrid[randRow][randCol].bomb == true) {
 			randRow = rand() % height;
 			randCol = rand() % width;
 		}
 
-		this->tileGrid[randRow][randCol].bomb = true;
+		tileGrid[randRow][randCol].bomb = true;
 	}
 
 	updateNearbyBombs();
@@ -52,7 +63,7 @@ void Grid::placeBombs(const int noOfBombs) {
 void Grid::updateNearbyBombs() {
 	for (int row = 0; row < height; row++) {
 		for (int col = 0; col < width; col++) {
-			this->tileGrid[row][col].nearBombs = getNearbyBombs(row, col);
+			tileGrid[row][col].nearBombs = getNearbyBombs(row, col);
 		}
 	}
 }
@@ -63,7 +74,7 @@ int Grid::getNearbyBombs(const int row, const int col) const {
 		if (checkRow >= 0 && checkRow < height) {
 			for (int checkCol = col - 1; checkCol < col + 1; checkCol++) {
 				if (checkCol >= 0 && checkCol < width) {
-					if (this->tileGrid[checkRow][checkCol].bomb) {
+					if (tileGrid[checkRow][checkCol].bomb) {
 						nearBombs += 1;
 					}
 				}
@@ -83,8 +94,12 @@ void Grid::clickTile(const int row, const int col) {
 
 	currentTile.revealed = true;
 
-	if (currentTile.bomb == false && currentTile.nearBombs == 0) {
+	if (!currentTile.bomb && currentTile.nearBombs == 0) {
 		revealZeroes(row, col);
+		checkWin();
+	}
+	else if (currentTile.bomb) {
+		state = GameState::lost;
 	}
 }
 
