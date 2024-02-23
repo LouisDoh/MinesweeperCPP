@@ -1,6 +1,6 @@
 #include "Client.h"
 
 int main() {
-    Client minesweeper;
-    minesweeper.gameLoop();
+	Client gameClient;
+	gameClient.gameLoop();
 }

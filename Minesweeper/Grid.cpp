@@ -30,8 +30,12 @@ std::string Grid::horizontalBorder() const {
 }
 
 void Grid::checkWin() {
+	int rowNum = 0;
 	for (const auto& row : tileGrid) {
+		rowNum++;
+		int colNum = 0;
 		for (const Tile& tile : row) {
+			colNum++;
 			if (!tile.bomb && !tile.revealed) {
 				return;
 			}
@@ -94,11 +98,10 @@ void Grid::clickTile(const int row, const int col) {
 	Tile& currentTile = this->tileGrid[row][col];
 
 	currentTile.revealed = true;
+	checkWin();
 
-	if (!currentTile.bomb && currentTile.nearBombs == 0) {
-		std::cout << "0 clicked.\n";
+	if (currentTile.nearBombs == 0) {
 		revealZeroes(row, col);
-		checkWin();
 	}
 	else if (currentTile.bomb) {
 		state = GameState::lost;
