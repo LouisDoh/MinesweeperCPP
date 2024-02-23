@@ -1,6 +1,7 @@
 #include "Grid.h"
 
 Grid::Grid(const int width, const int height, const int noOfBombs) : width(width), height(height), state(GameState::ongoing) {
+	state = GameState::ongoing;
 	std::vector<Tile> currentRow;
 
 	for (int row = 0; row < height; row++) {
@@ -31,7 +32,7 @@ std::string Grid::horizontalBorder() const {
 void Grid::checkWin() {
 	for (int row = 0; row < tileGrid.size(); row++) {
 		for (int col = 0; col < tileGrid[0].size(); col++) {
-			if (!tileGrid[row][col].bomb && !tileGrid[row][col].revealed) {
+			if (!tileGrid[row][col].bomb && !tileGrid[row][col].revealed) { //why did I not use a for-each..?
 				return;
 			}
 		}

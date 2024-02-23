@@ -1,6 +1,6 @@
-#include "Grid.h"
+#include "Client.h"
 
 int main() {
-    Grid myGrid;
-    std::cout << myGrid;
+    Client minesweeper;
+    minesweeper.gameLoop();
 }
