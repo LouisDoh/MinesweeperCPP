@@ -37,12 +37,13 @@ void Client::gameLoop() {
 		gameOverMessage = "Oh no! You clicked a bomb and lost!";
 	}
 
-	std::cout << gameOverMessage << "\nWould you like to play again? (y/n)\n";
+	std::cout << gameOverMessage << "This was the final grid:\n" << gameBoard << "\nWould you like to play again? (y/n)\n";
 
 	std::string response;
 	std::cin >> response;
 	
 	if (response == "y") {
+		gameBoard = getGameSettings();
 		gameLoop(); //this is limited by the stack... could lift out to outer function and while loop it? gameloop return true for play again, false for not?
 	}
 } 

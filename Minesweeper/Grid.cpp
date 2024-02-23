@@ -30,9 +30,9 @@ std::string Grid::horizontalBorder() const {
 }
 
 void Grid::checkWin() {
-	for (int row = 0; row < tileGrid.size(); row++) {
-		for (int col = 0; col < tileGrid[0].size(); col++) {
-			if (!tileGrid[row][col].bomb && !tileGrid[row][col].revealed) { //why did I not use a for-each..?
+	for (const auto& row : tileGrid) {
+		for (const Tile& tile : row) {
+			if (!tile.bomb && !tile.revealed) {
 				return;
 			}
 		}
@@ -71,9 +71,9 @@ void Grid::updateNearbyBombs() {
 
 int Grid::getNearbyBombs(const int row, const int col) const {
 	int nearBombs = 0;
-	for (int checkRow = row - 1; checkRow < row + 1; checkRow++) {
+	for (int checkRow = row - 1; checkRow <= row + 1; checkRow++) {
 		if (checkRow >= 0 && checkRow < height) {
-			for (int checkCol = col - 1; checkCol < col + 1; checkCol++) {
+			for (int checkCol = col - 1; checkCol <= col + 1; checkCol++) {
 				if (checkCol >= 0 && checkCol < width) {
 					if (tileGrid[checkRow][checkCol].bomb) {
 						nearBombs += 1;
@@ -96,6 +96,7 @@ void Grid::clickTile(const int row, const int col) {
 	currentTile.revealed = true;
 
 	if (!currentTile.bomb && currentTile.nearBombs == 0) {
+		std::cout << "0 clicked.\n";
 		revealZeroes(row, col);
 		checkWin();
 	}
@@ -105,13 +106,12 @@ void Grid::clickTile(const int row, const int col) {
 }
 
 void Grid::revealZeroes(const int row, const int col) {
-	for (int checkRow = row - 1; checkRow < row+1; checkRow++) {
+	for (int checkRow = row - 1; checkRow <= row+1; checkRow++) {
 		if (checkRow >= 0 && checkRow < height) {
 			//for the rows either side, if they don't go out-of-bounds
-			for (int checkCol = col - 1; checkCol < col + 1; checkCol++) {
-				if (checkCol >= 0 && checkCol < height) {
+			for (int checkCol = col - 1; checkCol <= col + 1; checkCol++) {
+				if (checkCol >= 0 && checkCol < width) {
 					//for the columns either side, if they don't go out-of-bounds
-					
 					if (!this->tileGrid[checkRow][checkCol].revealed) {
 						//if not already revealed
 						this->tileGrid[checkRow][checkCol].revealed = true;
@@ -121,7 +121,11 @@ void Grid::revealZeroes(const int row, const int col) {
 						}
 					}
 				}
+				else {
+				}
 			}
+		}
+		else {
 		}
 	}
 }
