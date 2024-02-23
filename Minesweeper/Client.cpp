@@ -29,6 +29,10 @@ void Client::gameLoop() {
 		takeTurn();
 	}
 	
+	wrapUpGame();
+} 
+
+void Client::wrapUpGame() {
 	std::string gameOverMessage = "";
 	if (gameBoard.getState() == GameState::won) {
 		gameOverMessage = "You won! Congratulations!";
@@ -41,12 +45,12 @@ void Client::gameLoop() {
 
 	std::string response;
 	std::cin >> response;
-	
+
 	if (response == "y") {
 		gameBoard = getGameSettings();
 		gameLoop(); //this is limited by the stack... could lift out to outer function and while loop it? gameloop return true for play again, false for not?
 	}
-} 
+}
 
 void Client::takeTurn() {
 	std::string raw = "";

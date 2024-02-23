@@ -11,4 +11,5 @@ class Client
 		Client();
 		void gameLoop();
 		void takeTurn();
+		void wrapUpGame();
 };
